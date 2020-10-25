@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width-device-width, initial-scale = 1, shrink-to-fit=no">
+    <title>SV - Portaria</title>
+    <link rel="icon" type="imagem/png" href="images/s_v_shield.png" />
+		
+
+		<link href="css/bootstrap-4.0.0.css" rel="stylesheet" type="text/css">
+		<link href="css/mdb.min.css" rel="stylesheet" type="text/css">
+    <link href="css/sb-admin.min.css" rel="stylesheet" type="text/css">
+
+    
+    <link href="css/partials/submit.css" rel="stylesheet" type="text/css">
+    <link href="css/partials/forms.css" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="css/partials/main-security.css">
+		
+		
+	</head>
+	
+	<body id="page-give-security" onload="javascript:exibeDataHora('hora')";>
+    <script>
+    
+      // document.location.reload(true);
+    </script>
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg blue-gradient navbar-dark">
+
+      <!-- Navbar brand -->
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#"><img src="images/s_v_shield.png" alt=""></a>
+            
+          <!-- porteiro -->
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
+                Porteiro X
+              </a>
+              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/login-portaria">Trocar Usuário</a>
+                <a class="dropdown-item" href="/">Sair</a>
+              </div>
+            </li>
+          </ul>
+    
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+    
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/main-seguranca">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cameras-seguranca">Câmeras</a>
+          </li>
+    
+           <!-- Dropdown Acessos-->
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Acessos</a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/acessos">Acessos do Dia</a>
+              <a class="dropdown-item" href="/acessos-programados">Acessos Agendados</a>
+              
+            </div>
+          </li>
+    
+    
+          <!-- Dropdown Correspondências-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Correspondências</a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/registro-correspondencia">Cadastrar Correspondências/Encomendas</a>
+              <a class="dropdown-item" href="/retirada-correspondencia">Realizar Retirada</a>
+              <a class="dropdown-item" href="/historico-correspondencia">Histório de Correspondências/Encomendas</a>
+            </div>
+          </li>
+    
+        </ul>
+        <!-- Links -->
+    
+        <form class="form-inline">
+          <div class="md-form my-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar Morador" aria-label="Search">
+          </div>
+        </form>
+      </div>
+      <!-- Collapsible content -->
+    
+    </nav>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-header p-0 border-0">
+
+          <p> Últimos Acessos</p>
+        </div>
+
+        <article class="card-body col-10 m-auto text-center">
+
+          {%for item in historico %} {{date}} {{item.placa_veiculo}} {{item.hora_acesso}} </br> {%endfor%}
+
+        </br></br>
+          Usuário Logado: {{user.login_cpf}}
+        
+        </article>
+        
+      </div>
+    </div>
+  <!-- Rodapé -->
+		<footer class="footer blue-gradient fixed-bottom" id="foot" style="text-align: center;">
+      <br>
+      <div class="itens-footer">
+        <div class="ml-md-5 p-0">
+          <h5><span id="hora"></span></h5>
+        </div>
+  
+
+        <div class="buttons">
+          <button type="submit" class="btn btn-primary mb-2 btn-rounded" id="openAndLockGate"> Abrir/ Fechar Portão</button>
+          <a href="cadastro-visitantes"><button type="submit" class="btn btn-primary mb-2 btn-rounded" id="cadVisitantes"> Visitantes</button></a> 
+          <a href="cadastro-prestadores-servico"><button type="submit" class="btn btn-primary mb-2 btn-rounded" id="cadVisitantes"> Prestadores de Serviço</button></a> 
+        </div>
+      
+      </div>
+      
+
+          
+    </footer>
+    
+		<script>
+           setTimeout(function() {
+      window.location.reload(1);
+    }, 3000);
+    </script>
+    <script src="js/clock.js"></script>
+		<script src="https://kit.fontawesome.com/00651707e2.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap-4.0.0.js"></script>
+		
+		
+	</body>
+	
+</html>

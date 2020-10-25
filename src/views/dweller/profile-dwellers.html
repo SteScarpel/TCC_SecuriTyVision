@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- authors -->
+    <meta name="author" content="Caio Matheus dos Santos Abra">
+    <meta name="author" content="Danilo Gonçalves de Amorim">
+    <meta name="author" content="Rodrigo de Camargo Toledo">
+    <meta name="author" content="Stephany Mendes Oliveira">
+    <!--  -->
+    <title>Reclamações</title>
+    <!-- icone -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/s_v_shield.png">
+    <!--  -->
+    <link href="css/bootstrap-4.0.0.css" rel="stylesheet" type="text/css">
+    <link href="css/mdb.min.css" rel="stylesheet" type="text/css">
+    <!-- meu estilo -->
+    <link href="css/partials/profile-dwellers.css" rel="stylesheet" type="text/css">
+    <!--  -->
+</head>
+<body>
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg blue-gradient navbar-dark">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="/app-moradores">
+          <img src="images/s_v_shield.png" alt="Logo">
+        </a>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
+              Morador X
+            </a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/">Sair</a>
+            </div>
+          </li>
+        </ul>
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <!-- home -->
+            <li class="nav-item active">
+              <a class="nav-link text-center" href="/app-moradores">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <!-- fim link home -->
+            <!-- veículos -->
+            <li class="nav-item">
+              <a class="nav-link" href="/veiculos">Veículos</a>
+            </li>
+            <!-- fim link veículos -->
+            <!-- Moradores -->
+            <li class="nav-item">
+              <a class="nav-link" href="/moradores">Moradores</a>
+            </li>
+            <!-- fim link Moradores -->
+            <!-- Encomendas -->
+            <li class="nav-item">
+              <a class="nav-link" href="/encomendas">Encomendas</a>
+            </li>
+            <!-- fim link Encomendas -->
+            <!-- Prestador de Serviço -->
+            <li class="nav-item">
+              <a class="nav-link" href="/prestador-de-servico">Prestador de Serviço</a>
+            </li>
+            <!-- fim link Prestador de Serviço -->
+            <!-- Reclamações -->
+            <li class="nav-item">
+              <a class="nav-link" href="/reclamacoes">Reclamações</a>
+            </li>
+            <!-- fim link Reclamações -->
+            <!-- Avisos -->
+            <li class="nav-item">
+              <a class="nav-link" href="/avisos">Avisos</a>
+            </li>
+            <!-- fim link Avisos -->
+            <!-- Perfil -->
+            <li class="nav-item">
+              <a class="nav-link" href="/perfil">Perfil</a>
+            </li>
+            <!-- fim link Perfil -->
+          </ul>
+          <!-- Links -->
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <div class="container">
+      <p>Perfil</p>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-3 text-white bg-royal-blue">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Nome</label>
+                                        <input type="text" readonly class="form-control-plaintext" id="name" value="nome fixo">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="login">Nome</label>
+                                        <input type="text" readonly class="form-control-plaintext" id="login" value="login fixo">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="password">Senha</label>
+                                        <input type="password" class="form-control" id="password">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="landline">Telefone Fixo</label>
+                                        <input type="tel" class="form-control" id="landline">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="cell-phone">Telefone Celular</label>
+                                        <input type="tel" class="form-control" id="cell-phone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 text-left">
+                                    <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold">Termos de Uso</button>
+                                </div>
+
+                                <div class="col-12 col-md-6 text-right">
+                                    <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/00651707e2.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.0.0.js"></script>
+</body>
+</html>

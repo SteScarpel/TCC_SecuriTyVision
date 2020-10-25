@@ -1,0 +1,13 @@
+ #page-landing{
+  background: var(--background-ligth);
+}
+
+
+@media(min-width:700px){
+
+  .row{
+    margin-top: 90px;
+  }
+  
+
+}
