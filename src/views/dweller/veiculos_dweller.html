@@ -31,9 +31,12 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-          Morador X
+          Olá, {%for morador in morador %}
+          {{morador.nome}}
+          {%endfor%}
         </a>
         <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/selecionar-acesso">Trocar o Perfil</a>
           <a class="dropdown-item" href="/">Sair</a>
         </div>
       </li>
@@ -88,50 +91,85 @@
           <a class="nav-link" href="/perfil">Perfil</a>
         </li>
         <!-- fim link Perfil -->
+        
       </ul>
       <!-- Links -->
     </div>
     <!-- Collapsible content -->
   </nav>
   <div class="container">
-    <p>Veículos</p>
-    <div class="card mt-3 text-white bg-royal-blue">
+    <div class="row">
+      <div class="col-12 mt-3">
+        <a href="/veiculos-cadastrados">
+          <button type="button" class="btn btn-light font-bold">veículos Cadastrados <i class="fas fa-search" aria-hidden="true"></i></button>
+        </a>
+        </div>
+    </div>
+    <div class="card mt-1 text-white bg-royal-blue">
+      <div class="card-header">
+        <p>Veículos</p>
+      </div>
       <div class="card-body">
-        <form action="" id="cadastro-veiculo">
-          <div class="form-row">
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="type-of-vehicle">Tipo</label>
-                <select class="custom-select" id="tipo-veiculo">
-                    <option selected disabled>Selecione</option>
-                    <option value="0">Carro</option>
-                    <option value="1">Moto</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="vehicle-plate">Placa</label>
-                <input type="text" class="form-control" id="placa-veiculo" placeholder="Digite sua Placa">
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="vehicle-owner">Proprietário</label>
-                <select class="custom-select" id="sel-veiculo-morador">
-                    <option selected disabled>Selecione o proprietario</option>
-                    <option value="1">Morador 1</option>
-                    <option value="2">Morador 2</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="vehicle-model">Modelo do Veículo</label>
-                <input type="text" class="form-control" id="modelo-veiculo" placeholder="Digite o modelo">
+        <form action="/veiculos" id="cadastro-veiculo" method="POST">
+          <div class="form-row mb-2">
+            <div class="col-12">
+              <div class="form-row">
+                <div class="col-12 col-md-6">
+                  <label for="Time-or-stay" class="font-weight-bold">Cadastrar Veículos</label>
+                </div>
+                <div class="col-12 col-md-6 text-md-right">
+                  <label for="Time-or-stay" class="font-weight-bold">
+                    <button type="button" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="novoHorario">
+                      <i class="fas fa-plus-circle"></i> Mais Veíclos
+                    </button>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
+
+          <div class="form-row border-top pt-3 mt-3 duplic" >
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label for="type-of-vehicle">Tipo</label>
+                  <select class="custom-select" name="tipoVeiculo" id="tipo-veiculo">
+                      <option selected disabled>Selecione</option>
+                      <option value="1">Carro</option>
+                      <option value="2">Moto</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label for="vehicle-plate">Placa</label>
+                  <input type="text" class="form-control" id="placaVeiculo" name="placa" placeholder="Digite sua Placa">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label for="vehicle-owner">Proprietário</label>
+                  <select class="custom-select" name="proprietario" id="proprietario">
+                      <option selected disabled>Selecione o proprietario</option>
+                     
+                      {%for morador in moradores %}
+                      <option value={{morador.id_morador}}>
+                        {{morador.nome}} {{morador.sobrenome}}
+                      </option>
+                      {%endfor%}
+                      
+                  </select>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label for="vehicle-model">Modelo do Veículo</label>
+                  <input type="text" class="form-control" name="modeloVeiculo" id="modelo-veiculo" placeholder="Digite o modelo">
+                </div>
+              </div>
+          </div>
+          <span id="duplic"></span>
+          
+          
           <div class="form-row">
             <div  class="col-12 text-right">
               <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="cadVeiculo">Salvar</button>
@@ -145,5 +183,18 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap-4.0.0.js"></script>
+
+  <script>
+    document.querySelector('#novoHorario').addEventListener('click', cloneField);
+    //executar func
+    function cloneField() {
+      const newFieldContainer = document.querySelector('.duplic').cloneNode(true)
+      const fields = newFieldContainer.querySelectorAll('input')
+      fields.forEach(function (field) {
+        field.value = ""
+      })
+      document.querySelector('#duplic').appendChild(newFieldContainer)
+    }
+  </script>
 </body>
 </html>

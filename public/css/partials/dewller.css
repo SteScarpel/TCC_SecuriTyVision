@@ -124,4 +124,5 @@ label{font-size:1.4rem!important;color:var(--color-text-complement)!important}
 input[type*=date],input[type*=email],input[type*=tel],input[type*=text],input[type*=time],select{width:100%!important;height:3rem!important;margin-top:.2rem!important;border-radius:.8rem!important;background:var(--color-input-background)!important;border:1px solid var(--color-line-in-white)!important;outline:0!important;padding:0 1.6rem!important}
 button[type*=submit]{color:#fff!important;background-color:#4285f4!important;transition:all .5s}
 button[type*=submit]:hover{transform:scale(.9)!important}
-p{color:var(--blue-dark)!important;font-weight:700!important;text-align:center!important;font-size:2rem!important}
+.modal-title, .card-header p{color:var(--blue-dark)!important;font-weight:700!important;text-align:center!important;font-size:2rem!important}
+p{color:var(--blue-dark)!important}

@@ -1,0 +1,32 @@
+h2{
+    font-weight: 700 !important;
+}
+
+p{
+    font-weight: normal !important;
+}
+
+form.terms-use h2, 
+form.terms-use p{
+    color: black !important;
+    font-size: initial !important;
+}
+
+.text-justify p{
+    text-align: justify !important;
+}
+
+@media screen and ( max-width:768px){ 
+    form.terms-use .form-row .text-justify{
+        height: 50vh;
+        overflow-y: scroll;
+    }
+    form.terms-use h2{
+        color: black !important;
+        font-size: 2rem!important;
+    }
+    form.terms-use p{
+        color: black !important;
+        font-size: 1.5rem!important;
+    }
+}

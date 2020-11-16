@@ -29,9 +29,12 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-          Morador X
+          Olá, {%for morador in morador %}
+          {{morador.nome}}
+          {%endfor%}
         </a>
         <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/selecionar-acesso">Trocar o Perfil</a>
           <a class="dropdown-item" href="/">Sair</a>
         </div>
       </li>
@@ -86,6 +89,7 @@
           <a class="nav-link" href="/perfil">Perfil</a>
         </li>
         <!-- fim link Perfil -->
+        
       </ul>
       <!-- Links -->
     </div>

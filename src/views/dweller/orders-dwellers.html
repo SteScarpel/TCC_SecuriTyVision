@@ -17,7 +17,7 @@
   <link href="css/mdb.min.css" rel="stylesheet" type="text/css">
   <!-- meu estilo -->
   <link href="css/partials/orders_dewller.css" rel="stylesheet" type="text/css">
-  
+
   <!--  -->
 </head>
 <body>
@@ -30,9 +30,12 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-          Morador X
+          Olá, {%for morador in morador %}
+          {{morador.nome}}
+          {%endfor%}
         </a>
         <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/selecionar-acesso">Trocar o Perfil</a>
           <a class="dropdown-item" href="/">Sair</a>
         </div>
       </li>
@@ -87,14 +90,44 @@
           <a class="nav-link" href="/perfil">Perfil</a>
         </li>
         <!-- fim link Perfil -->
+        
       </ul>
       <!-- Links -->
     </div>
     <!-- Collapsible content -->
   </nav>
+
   <div class="container">
-    <p>Encomendas</p>
-    <div class="card mt-3 text-white bg-royal-blue">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-3 text-white bg-royal-blue">
+          <div class="card-header">
+            <p>Encomendas</p>
+          </div>
+          <div class="card-body text-dark">
+            <div class="col-12 col-md-10  mx-md-auto mt-md-3">
+              <table class="table table-bordered table-hover"> 
+                <thead>
+                  <tr>
+                    <th class="font-weight-bold" scope="col">Tipo de Entrega</th>
+                    <th class="font-weight-bold" scope="col">Status Entrega</th>
+                    <th class="font-weight-bold" scope="col">Destinatário</th>
+                    <th class="font-weight-bold" scope="col">Data de Recebimento</th>
+                  </tr>
+                </thead>
+                {%for correspondencia in correspondencias %}
+                <tr>
+                  <td> {{correspondencia.tipo_entrega}}</td>
+                  <td>{{correspondencia.status_entrega}} </td>
+                  <td>{{correspondencia.nome}} {{correspondencia.sobrenome}}</td>
+                  <td>{{correspondencia.data_recebimento}}</td>
+                </tr>
+                {%endfor%}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="https://kit.fontawesome.com/00651707e2.js"></script>

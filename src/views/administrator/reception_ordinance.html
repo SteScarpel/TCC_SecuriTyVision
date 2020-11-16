@@ -30,187 +30,181 @@
 <body id="page-give-security">
     <!--Navbar -->
     <nav class="navbar navbar-expand-lg blue-gradient navbar-dark">
-        <!-- Navbar brand -->
-        <a class="navbar-brand" href="#"><img src="images/s_v_shield.png" alt=""></a>
-          <!-- Sindico X -->
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-                Sindico X
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#"><img src="images/s_v_shield.png" alt=""></a>
+      <!-- Sindico X -->
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"aria-expanded="false">
+            Olá, {%for sindico in sindico %}
+            {{sindico.nome}}
+            {%endfor%}
+          </a>
+          <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/trocar-Senha">Alterar Senha</a>
+            <a class="dropdown-item" href="/selecionar-acesso">Trocar o Perfil</a>
+            <a class="dropdown-item" href="/">Sair</a>
+          </div>
+        </li>
+      </ul>
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/sindico">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <!-- Dropdown Cadastros-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastros</a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-label ">Porteiro</span></a>
+              <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" tabindex="-1" href="cadastro-porteiros">Cadastrar Porteiro</a>
+                <a class="dropdown-item" tabindex="-1" href="remover-porteiros">Remover Porteiro</a>
+              </ul>
+              <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="nav-label ">Proprietários</span></a>
+              <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" tabindex="-1" href="cadastro-proprietarios">Cadastrar Proprietários</a>
+              </ul>
+              <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-label ">Síndico/Subsíndico</span></a>
+              <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" tabindex="-1" href="subsindico">Cadastrar Subsíndico</a>
+                <a class="dropdown-item" tabindex="-1" href="cadastro-sindico">Cadastrar Novo Síndico</a>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Dropdown Históricos-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Históricos
+            </a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-label ">Correspondências </span>
               </a>
-              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item"  href="/login-sindico">Trocar Usuário</a>
-                <a class="dropdown-item"  href="/">Sair</a>
-              </div>
-            </li>
-          </ul>
-        
-    
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse" id="basicExampleNav">
-    
-          <!-- Links -->
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/sindico">Home
-                <span class="sr-only">(current)</span>
+              <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" tabindex="-1" href="/recebimento-Portaria">Recebimentos e Retiradas</a>
+                <!-- <a class="dropdown-item" tabindex="-1" href="/retirada-moradores">Retirada dos Moradores</a> -->
+              </ul>
+              <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-label ">Acessos</span>
               </a>
-            </li>
-            
-    
-            <!-- Dropdown Cadastros-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Cadastros</a>
-              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
-                
-                  <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> 
-                    <span class="nav-label ">Porteiro</span></a>
-                    <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" tabindex="-1" href="cadastro-porteiros">Cadastrar Porteiro</a>
-                        <a class="dropdown-item" tabindex="-1" href="remover-porteiros">Remover Porteiro</a>
-                    </ul>
-              
-                    <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> 
-                      <span class="nav-label ">Proprietários</span></a>
-                      <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" tabindex="-1" href="cadastro-proprietarios">Cadastrar/Alterar Proprietários</a>
-    
-                       
-                      </ul>
-                  
-                      <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> 
-                        <span class="nav-label ">Síndico/Subsíndico</span></a>
-                        <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" tabindex="-1" href="subsindico">Cadastrar/Alterar Subsíndico</a>
-                            <a class="dropdown-item" tabindex="-1" href="cadastro-sindico">Cadastrar Novo Síndico</a>
-                        </ul>
-                
-              </div>
-            </li>
-    
-    
-            <!-- Dropdown Históricos-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Históricos</a>
-              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
-                
-                  <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> 
-                    <span class="nav-label ">Correspondências </span></a>
-                    <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" tabindex="-1" href="/recebimento-Portaria">Recebimento da Portaria </a>
-                        <a class="dropdown-item" tabindex="-1" href="/retirada-moradores">Retirada dos Moradores</a>
-                    </ul>
-              
-                    <a href="#" class="nav-item dropdown-toggle  " data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false"> 
-                      <span class="nav-label ">Acessos</span></a>
-                      <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" tabindex="-1" href="/acessos-agendados">Acessos Agendados</a>
-                          <a class="dropdown-item" tabindex="-1" href="/entrada-saida">Entrada/Saída </a>
-                      </ul>
-                  
-                    
-                
-              </div>
-            </li>
-    
-    
+              <ul class="dropdown-menu-right dropdown-secondary  " aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" tabindex="-1" href="/acessos-agendados">Acessos Agendados</a>
+                <a class="dropdown-item" tabindex="-1" href="/entrada-saida">Entrada/Saída </a>
+              </ul>
+            </div>
+          </li>
           <!-- Reclamações-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Reclamações</a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Reclamações</a>
             <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Consultar Reclamações</a>
-              <a class="dropdown-item" href="#">Enviar Advertência</a>
+              <a class="dropdown-item" href="/consultar-reclamacao">Consultar Reclamações</a>
+              <a class="dropdown-item" href="/enviar-avisos">Enviar Avisos</a>
             </div>
           </li>
-    
           <!-- Requerimentos-->
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#"">Requerimentos</a>
+            <a class="nav-link" href="/requerimentos">Requerimentos</a>
           </li>
-          </ul>
-    
-          
-    
-        </div>
-        <!-- Collapsible content -->
-    
-      </nav>
+          <!-- <li class="nav-item dropdown ml-2">
+            <a class="nav-link" href="/perfil-acesso-adm">Perfil de acesso <i class="fas fa-book"></i></a>
+          </li> -->
+        </ul>
 
-    <div class="container">
+      </div>
+      <!-- Collapsible content -->
+    </nav>
+  <div class="container">
+    <div class="card rounded-0">
+      <div class="card-header p-0 border-0">
+        <p>Recebimentos e Retiradas</p>
+      </div>
+      <div class="card-body my-3">
+        <form action="/recebimento-portaria" method="POST">
+          <fieldset>
+            <div class="form-row border-bottom">
+              <div class="col-md-6 col-lg-4 mb-3">
+                <div class="select-block">
+                  <label for="residenciaNum">Residência</label>
+                  <select class="form-control browser-default custom-select " name="residenciaNum" id="residenciaNum">
+                    <option value="">Selecione a Residência</option>
+                      
+                      {%for residencia in residencias %}
+                      <option value="{{loop.index}}" >
+                        {{residencia.num_residencia}}
+                      </option>
+                      {%endfor%}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 mb-3">
+                <div class="input-block">
+                  <label for="dataRecebimento">Data de Recebimento</label>
+                  <input id="dataRecebimento" name="dataRecebimento" type="date">
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-2 mb-3 " style="place-self: flex-end;">
+                <button type="submit" class="btn btn-primary btn-rounded m-0 text-lg-center" id="cadCorrespondencia" style="width: 100%;">Gerar Histório</button>     
+              </div>
+              <div class="col-md-6 col-lg-2 mb-3" style="place-self: flex-end;">
+                <a href="recebimento-portaria">
+                  <button type="button" class="btn btn-primary btn-rounded m-0  text-lg-center" id="novaBusca" style="width: 100%;"><i class="fas fa-search"></i> Nova Busca</button>
+                </a>
+                
+              </div>
+            </div>
+          </fieldset>
+        </form>
 
-        <div class="card rounded-0">
-            <div class="card-header p-0 border-0">
-                <p>Recebimento da Portaria</p>
-            </div>
-            <div class="card-body my-3">
-                <form>
-                    <fieldset>
-                        <div class="form-row border-bottom">
-                            <div class="col-md-4 mb-3">
-                                <div class="select-block">
-                                    <label for="tipoEntrega">Tipo de Entrega </label>
-                                    <select class="form-control browser-default custom-select " id="tipoEntrega">
-                                        <option value="">Selecione o Tipo</option>
-                                        <option value="1">Correspondência</option>
-                                        <option value="2">Encomenda/Sedex</option>
-                                        <option value="3">Carta Registrada</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="input-block">
-                                    <label for="dataRecebimento">Data de Recebimento: </label>
-                                    <input id="dataRecebimento" type="date">
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="select-block">
-                                    <label for="residenciaNum">Residência</label>
-                                    <select class="form-control browser-default custom-select " name="residencia" id="residenciaNum">
-                                        <option value="">Selecione a Residência</option>
-                                        <option value="1">Residência 1</option>
-                                        <option value="2">Residência 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- <div class="col-md-3 mb-3">
-                                <div class="select-block">
-                                    <label for="statusEntrega">Status de Entrega </label>
-                                    <select class="form-control browser-default custom-select " name="statusEntrega" id="statusEntrega">
-                                        <option value="">Selecione o Status</option>
-                                        <option value="1">Entrege</option>
-                                        <option value="2">À Receber</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                        </div>
-                    </fieldset>
-                </form> 
-            </div>
+        <div class="col-12 col-md-10  mx-md-auto mt-md-3">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="font-weight-bold" scope="col">Tipo de Entrega</th>
+                <th class="font-weight-bold" scope="col">Status da Entrega</th>
+                <th class="font-weight-bold" scope="col">Morador</th>
+              </tr>
+            </thead>
+
+            {%for correspondencia in correspondencias %}
+            <tr>
+              <td> {{correspondencia.tipo_entrega}}</td>
+              <td>{{correspondencia.status_entrega}} </td>
+              <td>{{correspondencia.nome}} {{registro.sobrenome}}</td>
+            </tr>
+            {%endfor%}
+          </table>
         </div>
+      </div>
     </div>
-    <script src="https://kit.fontawesome.com/00651707e2.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.0.0.js"></script>
 
-    <!-- <script src="DataTables/datatables.js"></script> -->
-    <!-- <script src="DataTables/datatables.min.js"></script> -->
+  </div>
 
-    <script>
-        // $(document).ready(function() {
-        //     $('#recebimentoPortaria').DataTable();
-        // } );
-    </script>
+  <script src="https://kit.fontawesome.com/00651707e2.js"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.0.0.js"></script>
+  <!-- <script src="DataTables/datatables.js"></script> -->
+  <!-- <script src="DataTables/datatables.min.js"></script> -->
+  <script>
+    // $(document).ready(function() {
+    //     $('#recebimentoPortaria').DataTable();
+    // } );
+  </script>
 
 </body>
 </html>

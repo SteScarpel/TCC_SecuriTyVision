@@ -9,7 +9,7 @@
     <meta name="author" content="Rodrigo de Camargo Toledo">
     <meta name="author" content="Stephany Mendes Oliveira">
     <!--  -->
-    <title>Perfil</title>
+    <title>Termos de uso</title>
     <!-- icone -->
     <link rel="shortcut icon" type="image/x-icon" href="images/s_v_shield.png">
     <!--  -->
@@ -17,6 +17,7 @@
     <link href="css/mdb.min.css" rel="stylesheet" type="text/css">
     <!-- meu estilo -->
     <link href="css/partials/profile-dwellers.css" rel="stylesheet" type="text/css">
+    <link href="css/partials/termsUse.css" rel="stylesheet" type="text/css">
     <!--  -->
 </head>
 <body>
@@ -95,103 +96,90 @@
       </div>
       <!-- Collapsible content -->
     </nav>
-    <div class="container">
+
+  <div class="container">
+      <div class="row mt-2">
+            <div class="col-12 text-left">
+              <a class="navbar-brand  text-white" href="/perfil">
+                <i class="fas fa-undo-alt" aria-hidden="true"></i> Voltar
+              </a>
+            </div>
+      </div>
+
       <div class="row">
         <div class="col-12">
           <div class="card mt-3 text-white bg-royal-blue">
             <div class="card-header">
-              <p>Perfil</p>
+              <p>Termos de uso</p>
             </div>
             <div class="card-body">
-              <form action="/perfil" method="POST">
-                <!-- <div class="form-row mb-4 text-center">
-                  <div class="col-12">
-                    <label for="foto-perfil">Selecione uma foto</label>
-                  </div>
-                      <div class="col-12">
-                        <input class="file-button btn btn-cyan btn-rounded mb-2 font-weight-bold" type="button" value="Selecione sua melhor foto">
-                      </div>
-                      <div class="col-12">
-                        <input class="file-chooser" type="file" accept="image/*" hidden>
-                        <img class="preview-img" style="max-height: 100%;max-width: 100%;height: 30vh;">
-                      </div>
-                </div> -->
-                <div class="form-row">
-                  <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                      <label for="name">Nome Completo</label>
-                      <input type="text" class="form-control-plaintext" id="name" name = "name" value="{%for dados in morador%} {{dados.nome}} {{dados.sobrenome}} {%endfor%} " readonly >
-                    </div>
-                  </div>
-                  <!-- <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                      <label for="login">Login</label>
-                      <input type="text" readonly class="form-control-plaintext" id="login" value="">
-                    </div>
-                  </div>
-
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="password">Senha</label>
-                      <input type="password" class="form-control" id="password">
-                    </div>
-                  </div> -->
-
-                  <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                      <label for="email">E-mail</label>
-                      <input type="email" class="form-control" id="email" name="email" value=" {%for email in email %}{{email.dados_contato}} {%endfor%}">
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                      <label for="landline">Telefone Fixo</label>
-                      <input type="tel" class="form-control" id="landline" name = "telFixo" value= " {%for tel in telfixo %}{{tel.dados_contato}} {%endfor%}">
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                      <label for="cell-phone">Telefone Celular</label>
-                      <input type="tel" class="form-control" id="cell-phone" name="telCel" value ="{%for tel in celular %}{{tel.dados_contato}} {%endfor%}">
-                    </div>
+              <form action="/termos-uso" method="POST" class="terms-use">
+                <div class="form-row ">
+                  <div class="col-12 col-md-11 col-lg-9 mx-auto text-center mb-4">
+                    <h2>Política de Cookies</h2>
+                    <p>Security Vision utiliza cookies para melhorar sua navegação em nosso sistema</p> 
                   </div>
                 </div>
 
-                <div class="form-row">
-                  <div class="col-12 col-md-6 text-left">
-                    <a href="/termos-uso">
-                      <button type="button" class="btn btn-cyan btn-rounded mb-2 font-weight-bold">Politica e Termos de Uso</button>
-                    </a>
-                  </div>
 
-                  <!-- <div class="col-12 col-md-6 text-right">
-                    <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold">Atualizar dados</button>
-                  </div> -->
+                <div class="form-row ">
+                  <div class="col-12 col-md-11 col-lg-9 mx-auto text-justify">
+                    <h2>O Que São Cookies?</h2>
+                    <p>
+                      Os cookies são pequenos arquivos de texto de um site que são aplicados no computador
+                      ou dispositivo móvel de um usuário que o acessa, através do navegador de internet. O
+                      objetivo dos cookies é ajudar o site a se “lembrar” do dispositivo, que o visitou pela
+                      última vez.
+                    </p>
+                    <p>
+                      Os cookies utilizados não recolhem informação que identifica o usuário, no entanto, se
+                      já for um morador com a aplicação do nosso sistema, poderemos monitorar as suas
+                      visitas ao sistema desde que, pelo menos, por uma vez, tenha iniciado a sua navegação
+                      a partir de alguma comunicação enviada por nós, por exemplo, SMS, e-mail ou
+                      integração ao sistema através da compra/aluguel de uma moradia condominial com o
+                      nosso sistema.
+                    </p>
+                    <h2>Que Tipos de Cookies Utilizamos?</h2>
+                    <p>
+                      Cookies de Sessão: são cookies temporários que nos ajudam a lembrar de você e
+                      todas as atividades que você realizou durante sua permanência em nosso sistema. Os
+                      cookies de sessão perdem a validade e são automaticamente excluídos no momento
+                      em que você deixar o site.
+                    </p>
+                    <h2>Considerações Importantes</h2>
+                    <p>
+                      Afirmamos aqui o nosso compromisso de garantir a segurança dos dados coletados e
+                      que seu tratamento obedece totalmente às normas determinadas pela LGPD (Lei Geral
+                      de Proteção de Dados Pessoais). Asseguramos que essa coleta de dados visa apenas
+                      melhorar o uso do sistema por seus clientes e usuários. Asseguramos, também, que
+                      seu tratamento compete apenas aos seus usuários, o condomínio contratante e a
+                      Security Vision, não havendo transferências com terceiros não-autorizados.
+                    </p>
+                  </div>
+                </div>
+                <!-- <div class="form-row"> -->
+                  <div class="col-12 col-md-11 col-lg-9  mx-auto mt-4">
+                    <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input" name="concordoComTermos" id="concordoComTermos">
+                      <label class="form-check-label" for="concordoComTermos">Li, e concordo com os termos e uso</label>
+                    </div>
+                  </div>
+                <!-- </div> -->
+                <div class="form-row">
+                          <div class="col-12 text-right">
+                              <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold">Salvar</button>
+                          </div>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
+  </div>
+    
     <script src="https://kit.fontawesome.com/00651707e2.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.0.0.js"></script>
-    <!-- <script>
-      const $ = document.querySelector.bind(document);
-      const previewImg = $('.preview-img');
-      const fileChooser = $('.file-chooser');
-      const fileButton = $('.file-button');
-      fileButton.onclick = () => fileChooser.click();
-      fileChooser.onchange = e => {
-        const fileToUpload = e.target.files.item(0);
-        const reader = new FileReader();
-        reader.onload = e => previewImg.src = e.target.result;
-        reader.readAsDataURL(fileToUpload);
-      };
-    </script> -->
 </body>
 </html>

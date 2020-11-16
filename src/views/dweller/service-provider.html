@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="utf-8">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -19,6 +20,7 @@
   <link href="css/partials/service-provider.css" rel="stylesheet" type="text/css">
   <!--  -->
 </head>
+
 <body>
   <!--Navbar -->
   <nav class="navbar navbar-expand-lg blue-gradient navbar-dark">
@@ -29,9 +31,12 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-          Morador X
+          Olá, {%for morador in morador %}
+          {{morador.nome}}
+          {%endfor%}
         </a>
         <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/selecionar-acesso">Trocar o Perfil</a>
           <a class="dropdown-item" href="/">Sair</a>
         </div>
       </li>
@@ -86,130 +91,151 @@
           <a class="nav-link" href="/perfil">Perfil</a>
         </li>
         <!-- fim link Perfil -->
+        
       </ul>
       <!-- Links -->
     </div>
     <!-- Collapsible content -->
   </nav>
   <div class="container">
-    <p>Adicionar Prestador de Serviço Fixo</p>
-      <div class="row">
-          <div class="col-12">
-            <div class="card mt-3 text-white bg-royal-blue">
-            <div class="card-body">
-                <form action="" id="cadastro-prestadorFixo">
+    <div class="row">
+      <div class="col-12 mt-3">
+        <a href="/prestadores-cadastrados">
+          <button type="button" class="btn btn-light font-bold">Prestadores Cadastrados <i class="fas fa-search"></i></button>
+        </a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-1 text-white bg-royal-blue">
+          <div class="card-header">
+            <p>Adicionar Prestador de Serviço Fixo</p>
+          </div>
+          <div class="card-body">
+            <form action="/prestador-de-servico" id="cadastro-prestadorFixo" method="POST">
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="nome">Nome </label>
+                    <input type="text" name="nome" id="nome" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="sobrenome">Sobrenome </label>
+                    <input type="text" name="sobrenome" id="sobrenome" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="cpf">CPF <small>(Somente Números)</small></label>
+                    <input name="cpf" id="cpf" type="number" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="rg">RG <small>(Somente Números)</small></label>
+                    <input name="rg" id="rg" type="text" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="data-nascimento">Data de Nascimento: </label>
+                    <input id="data-nascimento" name ="datanasc" type="date">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="kind-of-service">Tipo de Serviço</label>
+                    <input type="text" class="form-control" name="tiposervico" id="tipo-servico-prestador" placeholder="Tipo de serviço">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row mt-2">
+                <div class="col-12">
                   <div class="form-row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="nome">Nome </label>
-                        <input type="text" name="nome" id="nome" required>
-                      </div>
+                    <div class="col-12 col-md-6">
+                      <label for="Time-or-stay" class="font-weight-bold">Horário de Permanência</label>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-right">
+                      <label for="Time-or-stay" class="font-weight-bold">
+                        <button type="button" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="novoHorario">
+                          <i class="fas fa-plus-circle"></i> Novo Horário
+                        </button>
+                      </label>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div class="form-row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="sobrenome">Sobrenome </label>
-                        <input type="text" name="sobrenome" id="sobrenome" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="cpf"> CPF <small>(Somente Números)</small></label>
-                        <input name="cpf" id="cpf" type="number" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="rg">RG <small>(Somente Números)</small></label>
-                        <input name="rg" id="rg" type="number" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="data-nascimento">Data de Nascimento: </label>
-                        <input id="data-nascimento" type="date">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label for="kind-of-service">Tipo de Serviço</label>
-                          <input type="text" class="form-control" id="tipo-servico-prestador" placeholder="Tipo de serviço">
+              <div class="form-row" id="duplic">
+                <div class="col-12 duplicI">
+                  <div class="form-group">
+                    <div id="Time-or-stay">
+                      <div class=" row ">
+                        <div class="col-12">
+                          <div class="form-group">
+                            <label for="day-of-the-week">Dia da Semana</label>
+                            <select class="form-control" id="diaSemana" name="diaSemana">
+                              <option value="" selected disabled>Selecione um dia</option>
+                              <option value="1">Domingo</option>
+                              <option value="2">Segunda Feira</option>
+                              <option value="3">Terça Feira</option>
+                              <option value="4">Quarta Feira</option>
+                              <option value="5">Quinta Feira</option>
+                              <option value="6">Sexta Feira</option>
+                              <option value="7">Sábado</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                  </div>
-
-                  <div class="form-row mt-2">
-                    <div class="col-12">
-                      <div class="form-row">
                         <div class="col-12 col-md-6">
-                          <label for="Time-or-stay" class="font-weight-bold">Horário de Permanência</label>
+                          <div class="form-group">
+                            <label for="check-in-time">Hora de Entrada</label>
+                            <input type="time" name="horaEntrada" class="form-control" id="hora-entrada">
+                          </div>
                         </div>
-                        <div class="col-12 col-md-6 text-md-right">
-                          <label for="Time-or-stay" class="font-weight-bold">
-                            <button type="button" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="novoHorario">
-                              <i class="fas fa-plus-circle"></i> Novo Horário
-                            </button>                    
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row" id="duplic">
-                    <div class="col-12 duplicI">
-                      <div class="form-group">
-                        <div  id="Time-or-stay"  >
-                          <div class=" row ">
-                              <div class="col-12">
-                                  <div class="form-group">
-                                      <label for="day-of-the-week">Dia da Semana</label>
-                                      <input type="date" class="form-control" id="dia-semana">
-                                  </div>
-                              </div>
-                              <div class="col-12 col-md-6">
-                                  <div class="form-group">
-                                      <label for="check-in-time">Hora de Entrada</label>
-                                      <input type="time" class="form-control" id="hora-entrada">
-                                  </div>
-                              </div>
-                              <div class="col-12  col-md-6">
-                                  <div class="form-group">
-                                      <label for="exit-time">Hora de Saida</label>
-                                      <input type="time" class="form-control" id="hora-saida">
-                                  </div>
-                              </div>
+                        <div class="col-12  col-md-6">
+                          <div class="form-group">
+                            <label for="exit-time">Hora de Saida</label>
+                            <input type="time" class="form-control" name="horaSaida" id="hora-saida">
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="form-row">
-                      <div  class="col-12 text-right">
-                          <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="adcPrestador">Novo Prestador</button>
-                      <!-- </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12 text-right">
+                  <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="adcPrestador">Novo
+                    Prestador</button>
+                  <!-- </div>
                       <div  class="col-6 text-right"> -->
-                          <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold" id="cadPrestadorFixo">Salvar</button>
-                      </div>
-                  </div>
-                </form>
-            </div>
-            </div>
+                  <button type="submit" class="btn btn-cyan btn-rounded mb-2 font-weight-bold"
+                    id="cadPrestadorFixo">Salvar</button>
+                </div>
+              </div>
+            </form>
           </div>
+        </div>
       </div>
+    </div>
   </div>
   <script src="https://kit.fontawesome.com/00651707e2.js"></script>
   <script src="js/jquery-3.2.1.min.js"></script>
@@ -217,19 +243,17 @@
   <script src="js/bootstrap-4.0.0.js"></script>
 
   <script>
-    document.querySelector('#novoHorario').addEventListener('click',cloneField);
-
+    document.querySelector('#novoHorario').addEventListener('click', cloneField);
     //executar func
-    function cloneField(){
+    function cloneField() {
       const newFieldContainer = document.querySelector('.duplicI').cloneNode(true)
       const fields = newFieldContainer.querySelectorAll('input')
-
-      fields.forEach(function(field){
-        field.value=""
+      fields.forEach(function (field) {
+        field.value = ""
       })
-
       document.querySelector('#duplic').appendChild(newFieldContainer)
     }
   </script>
 </body>
+
 </html>

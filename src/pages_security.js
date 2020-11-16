@@ -1,6 +1,7 @@
 //Vincular com o Banco de Dados
 const {con} = require('./database/db.js');
 
+
 var moment = require('moment'); moment(). format();
 
 //Puxar Arrays de Valores e funções
@@ -33,19 +34,23 @@ function validaLogin(req, res){
     let testeAcesso  = []
     const sql = `
     SELECT 
-     login_cpf,nivel_acesso, status_login FROM acessos_login 
+     login_cpf,nivel_acesso, status_login FROM ACESSOS_LOGIN 
      where login_cpf = '${acesso.login}' and senha = '${acesso.password}'
   `
   con.query(sql, function (err, result) {
+    
     if (err) throw err;
 
+    
       req.session.user = result[0]
   
       if ( req.session.user.nivel_acesso == 3){
-        return res.redirect("/main-seguranca")
+         
+          return res.redirect("/main-seguranca")
+     
       }
       else if (req.session.user.nivel_acesso == 1 || req.session.user.nivel_acesso == 2){
-        return res.redirect("/sindico")
+        return res.redirect("/selecionar-acesso")
       }
       else if (req.session.user.nivel_acesso == 4  || req.session.user.nivel_acesso == 5 ){
         return res.redirect("/app-moradores")
@@ -54,6 +59,8 @@ function validaLogin(req, res){
       
   })
 
+  
+  // return res.redirect("/login")
   
   
 }
@@ -67,7 +74,7 @@ function validaLogin(req, res){
   const sql = `
     SELECT placa_veiculo , data_acesso, hora_acesso FROM HIST_ACESSO_PORTAO_VEICULOS  where data_acesso = '${todaydate}'
   `
-
+  let porteiro = []
   con.query(sql, function (err, result) {
     if (err) throw err;
       // console.log(result)
@@ -75,8 +82,16 @@ function validaLogin(req, res){
       historico = result
       
        date = moment(historico.data_acesso).format('DD/MM/YYYY')
-      
-      return res.render("./security/main-security.html", {historico:historico,  user:req.session.user, date})
+
+      sql2 = `
+      SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+      `
+      con.query(sql2, function (err, result) {
+        if (err) throw err;
+        porteiro = result
+        
+      return res.render("./security/main-security.html", {historico:historico,  user:req.session.user, date,porteiro })
+      });
       
     }
     );
@@ -84,15 +99,96 @@ function validaLogin(req, res){
 }
 
 function camerasSeguranca(req, res) {
-  return res.render("./security/cameras.html")
+  let porteiro = []
+  sql2 = `
+  SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+  `
+  con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+  return res.render("./security/cameras.html",{porteiro})
+  });
+
+  //teste de camera
+
+
+
+
+}
+
+function renderacessosDia(req, res) {
+
+  let porteiro = []
+  sql2 = `
+  SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+  `
+  con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+  return res.render("./security/day-access.html",{porteiro})
+  });
 }
 
 function acessosDia(req, res) {
-  return res.render("./security/day-access.html")
 }
 
 function historicoCorrespondencia(req, res) {
-  return res.render("./security/history-mail.html")
+
+  let correspondencias = []
+  let residencias = []
+
+  var numResidencia = req.body.residenciaNum
+  
+  var recebimentoData = req.body.dataRecebimento
+
+  sql = `
+    select e.tipo_entrega, e.status_entrega, p.nome, p.sobrenome from REG_CORRESPONDENCIA AS e 
+    join MORADORES as m on e.id_dest_morador = m.id_morador 
+    join cad_pessoa as p on m.cpf_pessoa = p.cpf
+    where e.num_residencia = ${numResidencia} and e.data_recebimento = '${recebimentoData}';
+  `
+  
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("CORRESPONDENCIAS LOCALIZADAS ");
+    console.log(result)
+    correspondencias = result
+
+    
+
+    return res.render("./security/history-mail.html", {correspondencias})
+    
+  });
+
+  
+}
+
+
+function renderhistoricoCorrespondencia(req, res){
+  let residencias = []
+  let porteiro = []
+
+  sql = `
+  SELECT num_residencia FROM RESIDENCIAS WHERE num_residencia > 0 ;
+  `
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("RESIDENCIAS LOCALIZADAS ");
+
+    residencias = result
+
+    sql2 = `
+    SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+    `
+    con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+
+    return res.render("./security/history-mail.html", {residencias, porteiro})
+    });
+  });
 }
 
 function renderMoradores(req, res){
@@ -113,11 +209,14 @@ function renderMoradores(req, res){
       return res.render("./security/mail_submit.html",{ moradores} )
 
     });
+
+   
 }
 
 function renderRegistroCorrespondencia(req, res) {
 
   let residencias = []
+  let porteiro = []
 
   sql = `
   SELECT num_residencia FROM RESIDENCIAS WHERE num_residencia > 0 ;
@@ -129,10 +228,15 @@ function renderRegistroCorrespondencia(req, res) {
 
     residencias = result
 
-    console.log(residencias)
-
+    sql2 = `
+    SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+  `
+    con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
   
-    return res.render("./security/mail_submit.html",{residencias} )
+    return res.render("./security/mail_submit.html",{residencias, porteiro} )
+    });
 
   });
 
@@ -144,20 +248,30 @@ function renderRegistroCorrespondencia(req, res) {
 function registroCorrespondencia (req, res){
   dados = req.body
   console.log(req.body)
-
+  
   const registro = new Object();
   registro.tipoEntrega = req.body.tipoentrega
   registro.dataRecebimento = req.body.datarecebimento
   registro.morador = req.body.morador
+  
   registro.porteiro = req.session.user.login_cpf
   registro.statusEntrega = "Disponível Retirada"
   registro.dataCadastro = moment().format('YYYY/MM/DD')
 
+  let residencia = []
 
+  sql = ` 
+  select num_residencia from moradores where id_morador = ${registro.morador};
+  `
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    
+    residencia = result[0]
+      
 
   sql = `
-  INSERT INTO REG_CORRESPONDENCIA (tipo_entrega, data_recebimento, id_dest_morador, id_porteiro, status_entrega, data_cadastro)
-    VALUES (${registro.tipoEntrega}, '${registro.dataRecebimento}', ${registro.morador}, ${registro.porteiro}, '${registro.statusEntrega}', '${registro.dataCadastro}');
+  INSERT INTO REG_CORRESPONDENCIA (tipo_entrega, data_recebimento, id_dest_morador, num_residencia, id_porteiro, status_entrega, data_cadastro)
+    VALUES (${registro.tipoEntrega}, '${registro.dataRecebimento}', ${registro.morador}, ${residencia.num_residencia}, ${registro.porteiro}, '${registro.statusEntrega}', '${registro.dataCadastro}');
   `
 
   con.query(sql, function (err, result) {
@@ -167,20 +281,167 @@ function registroCorrespondencia (req, res){
     return res.redirect("/registro-correspondencia" )
 
   });
+
+});
   
 }
 
-function retiradaCorrespondencia(req, res) {
+function renderRetiradaCorrespondencia(req, res) {
   const filters = req.query //manter os valores selecionados aparecendo 
-  return res.render("./security/receive-mail.html", { filters })
+  let residencias = []
+  let porteiro = []
+
+  sql = `
+  SELECT num_residencia FROM RESIDENCIAS WHERE num_residencia > 0 ;
+  `
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    
+    residencias = result
+
+    sql2 = `
+    SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+    `
+    con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+  
+    return res.render("./security/receive-mail.html", {residencias, porteiro})
+    });
+
+  });
+
+  
+}
+
+function retiradaCorrespondencia(req,res){
+  let correspondencias = []
+  let moradores = []
+
+  var residencia = req.body.residenciaNum
+  console.log(residencia)
+  
+
+  sql = `
+  select e.id_entrega, e.tipo_entrega, c.nome, c.sobrenome from reg_correspondencia as e 
+  inner join MORADORES as m on e.id_dest_morador = m.id_morador
+  inner join cad_pessoa as c on m.cpf_pessoa = c.cpf where status_entrega= 'Disponível Retirada' and e.num_residencia = ${residencia};
+  `
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    
+    correspondencias = result
+    console.log(correspondencias)
+
+    sql2 = `
+    SELECT id_morador, nome, sobrenome FROM CAD_PESSOA c
+    inner join moradores m on c.cpf = m.cpf_pessoa where m.num_residencia = ${residencia};
+    `
+    con.query(sql2, function (err, result) {
+      if (err) throw err;
+      
+      moradores = result
+      console.log(moradores)
+
+      return res.render("./security/receive-mail.html", {correspondencias,moradores})
+    });
+
+    
+  });
+
+}
+
+function gravarRetirada(req,res){
+
+  var correspondenciaSelecionada = req.body.correspondenciaASerRetirada
+
+
+  sql= `
+  update reg_correspondencia 
+  set status_entrega = "Retirado"
+  where id_entrega = ${correspondenciaSelecionada} ;
+  `
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Registro Atualizado")
+
+    return res.redirect("/retirada-correspondencia")
+  });
+
+
+  
+}
+
+function renderAcessoProgramado(req, res) {
+  let porteiro = []
+  let acessos = []
+  var weekday = moment().format('dddd'); 
+  var numberWeekday 
+
+  if(weekday = "Sunday"){
+    numberWeekday = 1
+  }
+
+  else if(weekday = "Monday"){
+    numberWeekday = 2
+  }
+
+  else if(weekday = "Tuesday"){
+    numberWeekday = 3
+  }
+  
+  else if(weekday = "Wednesday"){
+    numberWeekday = 4
+  }
+
+  else if(weekday = "Wednesday"){
+    numberWeekday = 5
+  }
+
+  else if(weekday = "Friday"){
+    numberWeekday = 6
+  }
+  
+  else if(weekday = "Saturday"){
+    numberWeekday = 7
+  }
+
+  sql = `
+  select p.nome, p.sobrenome, p.cpf, h.hora_inicio, h.hora_saida, f.num_residencia from CAD_PESSOA as p inner join  CAD_PRESTADOR_FIXO_RESIDENCIAS as f on f.cpf_pessoa_prestador = cpf
+  inner join PERMANENCIA_PRESTADOR_FIXO as h on h.id_prestador_fixo = f.id_prestador_fixo where h.dia_semana = ${numberWeekday};
+  `
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    acessos = result 
+    
+    sql2 = `
+    SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+    `
+    con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+    return res.render("./security/scheduled-access.html", {acessos, porteiro})
+    });
+  });
+
 }
 
 function acessoProgramado(req, res) {
-  return res.render("./security/scheduled-access.html")
 }
 
 function renderCadastroVisitante(req,res){
-  return res.render("./security/visitor_submit.html")
+  let porteiro = []
+
+  sql2 = `
+  SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+  `
+  con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+  return res.render("./security/visitor_submit.html",{porteiro})
+  });
 }
 
 
@@ -290,7 +551,17 @@ function cadastroVisitante(req, res) {
 }
 
 function renderCadPrestadorServico (req, res){
-  return res.render("./security/service_submit.html")
+
+  let porteiro = []
+
+  sql2 = `
+  SELECT nome from CAD_PESSOA where cpf = ${req.session.user.login_cpf };
+  `
+  con.query(sql2, function (err, result) {
+    if (err) throw err;
+    porteiro = result
+  return res.render("./security/service_submit.html", {porteiro})
+  });
 }
 
 //função completa - só falta as query do BD
@@ -420,6 +691,7 @@ function cadPrestadorServico(req, res) {
 
 module.exports = { 
    camerasSeguranca, acessosDia , historicoCorrespondencia, registroCorrespondencia, retiradaCorrespondencia,
-  acessoProgramado, cadastroVisitante, cadPrestadorServico, telalogin, validaLogin, mainSeguranca, renderCadastroVisitante, 
-  renderCadPrestadorServico, renderRegistroCorrespondencia, renderMoradores
+  acessoProgramado, renderAcessoProgramado, cadastroVisitante, cadPrestadorServico, telalogin, validaLogin, mainSeguranca, renderCadastroVisitante, 
+  renderCadPrestadorServico, renderRegistroCorrespondencia, renderMoradores, renderhistoricoCorrespondencia, renderRetiradaCorrespondencia,
+  renderacessosDia, gravarRetirada
 }

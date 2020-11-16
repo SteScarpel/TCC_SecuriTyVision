@@ -9,7 +9,7 @@
     <meta name="author" content="Rodrigo de Camargo Toledo">
     <meta name="author" content="Stephany Mendes Oliveira">
     <!--  -->
-    <title>Retirada dos Moradores</title>
+    <title>Requerimentos</title>
     <!-- icone -->
     <link rel="shortcut icon" type="image/x-icon" href="images/s_v_shield.png">
     <!--  -->
@@ -17,13 +17,9 @@
     <!-- meu estilo -->
     <link href="css/mdb.min.css" rel="stylesheet" type="text/css">
     <link href="css/sb-admin.min.css" rel="stylesheet" type="text/css">
-
     <link href="css/partials/submit.css" rel="stylesheet" type="text/css">
     <link href="css/partials/forms.css" rel="stylesheet" type="text/css">
-
-    <!-- <link href="DataTables/datatables.css" rel="stylesheet" type="text/css">
-    <link href="DataTables/datatables.min.css" rel="stylesheet" type="text/css"> -->
-    <!--  -->
+    
 </head>
 
 <body id="page-give-security">
@@ -128,73 +124,112 @@
       <!-- Collapsible content -->
     </nav>
 
-    <div class="container">
-        <div class="card rounded-0">
-            <div class="card-header p-0 border-0">
-                <p>Retirada dos Moradores</p>
-            </div>
-            <div class="card-body my-3">
-                <form>
+    <div class="container"> 
+      <div class="card rounded-0">
+          <div class="card-header p-0 border-0">
+              <p>Requerimentos</p>
+          </div>
+          <div class="card-body my-3">
+              <form action="" method="POST">
                     <fieldset>
-                        <div class="form-row border-bottom">
-                            <div class="col-md-3 mb-3">
-                                <div class="select-block">
-                                    <label for="moradorRetirou">Morador:</label>
-                                    <select class="form-control browser-default custom-select " id="moradorRetirou">
-                                        <option value="">Selecione o Morador</option>
-                                        <option value="1">Morador 0</option>
-                                        <option value="2">Morador 1</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="select-block">
-                                    <label for="validaPorteiro">Porteiro:</label>
-                                    <select class="form-control browser-default custom-select " id="validaPorteiro">
-                                        <option value="">Selecione o Porteiro</option>
-                                        <option value="1">Porteiro 0</option>
-                                        <option value="2">Porteiro 1</option>
-                                    </select>
-                                </div>
-                            </div>
+                      <div class="form-row border-bottom pb-4">
 
-                            <div class="col-md-3 mb-3">
-                                <div class="select-block">
-                                    <label for="residenciaNum">Residência</label>
-                                    <select class="form-control browser-default custom-select " name="residencia" id="residenciaNum">
-                                        <option value="">Selecione a Residência</option>
-                                        <option value="1">Residência 1</option>
-                                        <option value="2">Residência 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="input-block">
-                                    <label for="dataReirada">Data</label>
-                                    <input id="dataReirada" type="date">
-                                </div>
+                        <div class="col-md-6 col-lg-6 mb-3">
+                            <div class="select-block">
+                                <label for="residenciaNum">Residência</label>
+                                <select class="form-control browser-default custom-select " name="residencia" id="residenciaNum">
+                                  <option value="">Selecione a Residência</option>
+                                  {%for residencia in residencias %}
+                                       <option value="{{residencia.num_residencia}}">
+                                       {{residencia.num_residencia}}
+                                      </option>
+                                       {%endfor%}
+                                </select>
                             </div>
                         </div>
+                       
+                        <div class="col-md-6 col-lg-4 mb-2" style="align-self: flex-end;">
+                          <button type="submit" class="btn btn-primary mb-2 btn-rounded" id="carregarMordores" style="width: 100%;">
+                            <i class="fas fa-search mr-2" aria-hidden="true"></i> Carregar Moradores
+                          </button>
+                        </div>
+                      </div>
                     </fieldset>
-                </form> 
-            </div>
-        </div>
+              </form>
+              
+              <form action="/gerar-relatorio" method="POST">
+                  <fieldset>
+                    <div class="form-row ">
+                      <div class="col-md-6 col-lg-6 mb-3">
+                        <div class="select-block">
+                            <label for="moradores">Moradores</label>
+                            <select class="form-control browser-default custom-select " name="moradores" id="moradores">
+                              <option value="" disabled selected>Selecione o moradores</option>
+                              <option value=""></option>
+                            </select>
+                        </div>
+                      </div>
 
+                      <div class="col-md-6 col-lg-6 mb-3">
+                        <div class="select-block">
+                            <label for="solicitacao">Solicitação</label>
+                            <select class="form-control browser-default custom-select " name="solicitacao" id="solicitacao">
+                              <option value="" selected disabled>Selecione a Solicitação</option>
+                              <option value="1">1 – Nova Tag de Portão de Pedestre</option>
+                              <option value="2">2 – Novo Interfone</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                  </fieldset>
 
+                  <div class="buttons" style="text-align: right;margin-top: 2rem;">
+                    <button type="button" class="btn btn-cyan mb-2 btn-rounded" id="save">Salvar</button>
+                  </div>
+              </form>
 
+              <section class="sectionImprimir  d-none  border">
+                <div class="row">
+                  <div class="col-12 text-left">
+                    <button type="button" class="btn btn-cyan mb-2 btn-rounded"  onclick="teste()">Imprimir</button>
+                    <button type="button" class="btn btn-warning mb-2 btn-rounded nImprimir">Cancelar</button>
+                  </div>
+                </div>
+              </section>
+          </div>
+      </div>
     </div>
     <script src="https://kit.fontawesome.com/00651707e2.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.0.0.js"></script>
-
-    <!-- <script src="DataTables/datatables.js"></script>
-    <script src="DataTables/datatables.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script>
+      function teste(){
+      var doc = new jsPDF()
+      doc.text('Hello world!', 10, 10)
+      doc.save('requerimentos.pdf')
+  }
+    </script>
 
     <script>
-        // $(document).ready(function() {
-        //     $('#retiradaMoradores').DataTable();
-        // } );
+      $('#save').on('click', function (event){
+
+        if($('.sectionImprimir').hasClass('d-none')){
+          $('.sectionImprimir').removeClass('d-none');
+        }else{
+
+        }
+      });
+
+      $('.nImprimir').on('click', function (event){
+
+        if(!$('.sectionImprimir').hasClass('d-none')){
+          $('.sectionImprimir').addClass('d-none');
+        }else{
+
+        }
+      });
     </script>
 
 </body>
